@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  /* ============================================= */
+  /* TYPOGRAPHY — Inter only, no external fonts     */
+  /* ============================================= */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Inter', system-ui, sans-serif;
+
+  /* ============================================= */
+  /* COLOR FOUNDATION                               */
+  /* ============================================= */
+  --color-black: #0A0A0A;
+  --color-near-black: #111111;
+  --color-ink: #111111;
+  --color-gray-bg: #F1F0EC;
+  --color-white: #FFFFFF;
+
+  --color-accent: #FF3B30;
+  --color-accent-hover: #E0342A;
+  --color-accent-soft: #FFF0EF;
+  --color-accent-border: #FFD5D2;
+
+  --color-muted: #8A8A85;
+  --color-muted-soft: #A0A09B;
+  --color-line: rgba(17, 17, 17, 0.1);
+  --color-line-dark: rgba(255, 255, 255, 0.1);
+
+  /* ============================================= */
+  /* RADIUS SCALE                                   */
+  /* ============================================= */
+  --radius-card: 22px;
+  --radius-card-lg: 26px;
+  --radius-pill: 999px;
+
+  /* ============================================= */
+  /* SHADOW SCALE                                   */
+  /* ============================================= */
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --shadow-cta: 0 4px 20px rgba(255, 59, 48, 0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: 'tnum' 1, 'cv11' 1;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-black);
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+}
