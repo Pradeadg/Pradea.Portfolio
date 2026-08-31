@@ -12,8 +12,8 @@ export const PROJECTS: Project[] = [
     coverImage: '/fazch-cover.png',
     description: 'Website independen untuk brand fashion muslim, dibangun dari desain sampai deployment dengan integrasi pembayaran Midtrans.',
     tags: ['Figma', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Midtrans API'],
-    role: 'Lead Product Designer & Frontend Engineer',
-    duration: '3 Bulan (2025 - 2026)',
+    role: 'Product Designer & Frontend Engineer',
+    duration: '3 Bulan (2025)',
     statusBadge: {
       text: 'Live Product',
       variant: 'live'
@@ -71,7 +71,7 @@ export const PROJECTS: Project[] = [
     coverImage: '/finrisk-cover.png',
     description: 'Design system dan dashboard untuk tim risk fintech — skor risiko, fraud badge, decision log.',
     tags: ['Figma', 'Notion'],
-    role: 'Senior UI/UX & Design System Specialist',
+    role: 'UI/UX & Design System',
     duration: 'Tahap Desain Awal',
     modalVariant: 'credit-risk-minimal',
     statusBadge: {

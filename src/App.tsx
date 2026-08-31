@@ -85,7 +85,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#111111] font-sans antialiased selection:bg-[#FF3B30] selection:text-white">
+    <div className="min-h-screen bg-[#FBFBFA] text-[#111111] font-sans antialiased selection:bg-[#FF3B30] selection:text-white">
       {/* 1. NAVBAR (Dark, Sticky) */}
       <Navbar onOpenCv={() => setIsCvOpen(true)} />
 

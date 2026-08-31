@@ -2,42 +2,49 @@
 
 @theme {
   /* ============================================= */
-  /* TYPOGRAPHY — Inter only, no external fonts     */
+  /* TYPOGRAPHY — Outfit (Heading) & Inter (Body)  */
   /* ============================================= */
   --font-sans: 'Inter', system-ui, sans-serif;
-  --font-mono: 'Inter', system-ui, sans-serif;
+  --font-display: 'Outfit', system-ui, sans-serif;
 
   /* ============================================= */
-  /* COLOR FOUNDATION                               */
+  /* COLOR FOUNDATION                              */
+  /* Sumber: palette Coolors lo (F47318/0D0D0D/    */
+  /* 303030/F2F2F2/FFFFFF)                         */
   /* ============================================= */
-  --color-black: #0A0A0A;
-  --color-near-black: #111111;
-  --color-ink: #111111;
-  --color-gray-bg: #F1F0EC;
+  --color-black: #0D0D0D;
+  --color-near-black: #303030;
+  --color-ink: #0D0D0D;
+  --color-gray-bg: #F2F2F2;
   --color-white: #FFFFFF;
 
-  --color-accent: #FF3B30;
-  --color-accent-hover: #E0342A;
-  --color-accent-soft: #FFF0EF;
-  --color-accent-border: #FFD5D2;
+  /* Orange accent — satu-satunya warna aksen di seluruh web */
+  --color-accent: #F47318;
+  --color-accent-hover: #D9640F;
+  --color-accent-soft: #FFF1E6;
+  --color-accent-border: #FFD3AD;
 
-  --color-muted: #8A8A85;
-  --color-muted-soft: #A0A09B;
-  --color-line: rgba(17, 17, 17, 0.1);
+  /* Grayscale sekunder — diturunin dari 303030, bukan hex baru
+     yang nggak ada di palette lo */
+  --color-muted: #6B6B6B;
+  --color-muted-soft: #9A9A9A;
+  --color-line: rgba(13, 13, 13, 0.08);
   --color-line-dark: rgba(255, 255, 255, 0.1);
 
   /* ============================================= */
-  /* RADIUS SCALE                                   */
+  /* RADIUS SCALE                                  */
   /* ============================================= */
   --radius-card: 22px;
   --radius-card-lg: 26px;
   --radius-pill: 999px;
 
   /* ============================================= */
-  /* SHADOW SCALE                                   */
+  /* SHADOW SCALE                                  */
+  /* Cuma buat elemen "elevated" (foto/hero), bukan */
+  /* default semua card                            */
   /* ============================================= */
-  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.35);
-  --shadow-cta: 0 4px 20px rgba(255, 59, 48, 0.35);
+  --shadow-photo: 0 12px 32px rgba(13, 13, 13, 0.25);
+  --shadow-cta: 0 4px 20px rgba(244, 115, 24, 0.3);
 }
 
 html {
@@ -47,6 +54,13 @@ html {
 body {
   font-family: var(--font-sans);
   font-feature-settings: 'tnum' 1, 'cv11' 1;
+  background-color: var(--color-gray-bg);
+  color: var(--color-ink);
+}
+
+/* Otomatis membuat semua judul (h1-h6) menggunakan font Outfit */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
 }
 
 /* Custom subtle scrollbar */
@@ -57,9 +71,9 @@ body {
   background: var(--color-black);
 }
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: var(--color-near-black);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3a3a3a;
+  background: #4a4a4a;
 }
