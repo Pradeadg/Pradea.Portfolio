@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
 import { ChevronDown, Plus, Minus, CheckCircle2, Sparkles, Layers, Code, Zap } from 'lucide-react';
 import { SKILL_ACCORDION_ITEMS } from '../data/portfolioData';
+import { useLanguage } from '../LanguageContext';
 
 export const SkillsSection: React.FC = () => {
+  const { language, copy } = useLanguage();
+  const englishDescriptions: Record<string, string> = {
+    'ui-ux': 'Research, wireframes, and complete design systems—including fintech dashboards with complex business logic.',
+    frontend: 'Building modern interfaces from design canvas to clean, modular, production-ready code, including backend architecture and data.',
+    'ai-workflow': 'Accelerating research, design exploration, and code through vibe coding and leading AI tools.',
+  };
+  const englishDetails: Record<string, string[]> = {
+    'ui-ux': ['Creating effective information architecture and wireframes', 'Translating complex business logic into intuitive, explainable UI', 'Building token-based design systems', 'High-fidelity interactive prototyping with responsive micro-interactions'],
+    frontend: ['Modern React 19 / Next.js with functional component architecture', 'Precise Tailwind CSS implementation', 'Backend integration with Supabase and payment gateways', 'Row Level Security and permission-layer design', 'Core Web Vitals and technical SEO optimization'],
+    'ai-workflow': ['Vibe coding for rapid prototypes from sketch to working software', 'Applying generative AI to accelerate research and design exploration', 'Synthesizing qualitative research and creating user personas', 'Exploring copy, transcribing feedback, and automating design workflows'],
+  };
   // Single open item state (default: 'ui-ux')
   const [openItemId, setOpenItemId] = useState<string | null>('ui-ux');
 
@@ -13,21 +25,23 @@ export const SkillsSection: React.FC = () => {
   return (
     <section 
       id="skills" 
-      className="py-24 sm:py-32 bg-[#111111] text-white border-b border-[#222222]"
+      className="py-20 sm:py-28 bg-black text-white border-b border-line-dark"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-16">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 sm:mb-20 space-y-4">
-          <div className="inline-block text-xs font-mono text-[#FF3B30] uppercase tracking-wider font-bold">
-            KEAHLIAN & KAPABILITAS
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-28 items-start mb-16 sm:mb-20">
+          <div className="lg:col-span-6 space-y-4">
+            <span className="block font-display text-xl sm:text-2xl font-semibold text-accent">{copy.skills.eyebrow}</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
+              {copy.skills.title}
+            </h2>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-[-0.02em] text-white leading-tight">
-            Dikerjakan dengan tujuan. Dibangun untuk hasil nyata.
-          </h2>
-          <p className="text-sm sm:text-base text-[#8A8A85]">
-            Pendekatan hybrid yang menggabungkan keahlian desain produk digital, rekayasa frontend modern, dan akselerasi workflow AI.
-          </p>
+          <div className="lg:col-span-6 lg:pt-12">
+            <p className="font-display text-lg sm:text-xl lg:text-2xl font-medium leading-relaxed text-white">
+              {copy.skills.lead}
+            </p>
+          </div>
         </div>
 
         {/* 3-Row Accordion */}
@@ -38,10 +52,10 @@ export const SkillsSection: React.FC = () => {
               <div
                 key={item.id}
                 id={`skill-accordion-${item.id}`}
-                className={`border rounded-[20px] transition-all duration-200 overflow-hidden ${
+                className={`border rounded-card transition-all duration-200 overflow-hidden ${
                   isOpen 
-                    ? 'bg-[#181818] border-[#383838]' 
-                    : 'bg-[#141414] border-[#242424] hover:border-[#303030]'
+                    ? 'bg-near-black border-white/20' 
+                    : 'bg-black border-line-dark hover:border-white/20'
                 }`}
               >
                 {/* Accordion Row Header Button */}
@@ -52,7 +66,7 @@ export const SkillsSection: React.FC = () => {
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-center gap-4 sm:gap-6">
-                    <span className="font-mono text-base sm:text-lg font-bold text-[#FF3B30]">
+                    <span className="font-display text-base sm:text-lg font-bold text-accent">
                       {item.number}.
                     </span>
                     <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
@@ -66,7 +80,7 @@ export const SkillsSection: React.FC = () => {
                       {item.chips.map((chip, idx) => (
                         <span
                           key={idx}
-                          className="text-xs font-mono bg-[#222222] text-[#D1D1D0] px-3 py-1 rounded-full border border-[#333333]"
+                          className="text-xs bg-white/5 text-muted-soft px-3 py-1 rounded-pill border border-line-dark"
                         >
                           {chip}
                         </span>
@@ -75,19 +89,19 @@ export const SkillsSection: React.FC = () => {
 
                     {/* Smooth Rotating Plus/Minus Icon */}
                     <div 
-                      className={`w-8 h-8 rounded-full bg-[#222222] flex items-center justify-center shrink-0 transition-transform duration-350 ease-in-out ${
+                      className={`w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 transition-transform duration-350 ease-in-out ${
                         isOpen ? 'rotate-180' : 'rotate-0'
                       }`}
                     >
                       <div className="relative w-4 h-4 flex items-center justify-center">
                         <Plus 
                           className={`w-4 h-4 absolute inset-0 transition-all duration-350 ease-in-out ${
-                            isOpen ? 'opacity-0 rotate-90 scale-75 text-[#FF3B30]' : 'opacity-100 rotate-0 scale-100 text-white'
+                            isOpen ? 'opacity-0 rotate-90 scale-75 text-accent' : 'opacity-100 rotate-0 scale-100 text-white'
                           }`} 
                         />
                         <Minus 
                           className={`w-4 h-4 absolute inset-0 transition-all duration-350 ease-in-out ${
-                            isOpen ? 'opacity-100 rotate-0 scale-100 text-[#FF3B30]' : 'opacity-0 -rotate-90 scale-75 text-white'
+                            isOpen ? 'opacity-100 rotate-0 scale-100 text-accent' : 'opacity-0 -rotate-90 scale-75 text-white'
                           }`} 
                         />
                       </div>
@@ -103,25 +117,25 @@ export const SkillsSection: React.FC = () => {
                 >
                   <div className="overflow-hidden">
                     <div 
-                      className={`px-6 pb-6 sm:px-8 sm:pb-8 pt-2 border-t border-[#262626] transition-all duration-350 ease-out ${
+                      className={`px-6 pb-6 sm:px-8 sm:pb-8 pt-2 border-t border-line-dark transition-all duration-350 ease-out ${
                         isOpen ? 'translate-y-0 opacity-100' : '-translate-y-2.5 opacity-0'
                       }`}
                     >
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-3">
                         <div className="lg:col-span-6">
-                          <p className="text-sm sm:text-base text-[#D1D1D0] leading-relaxed">
-                            {item.description}
+                          <p className="text-sm sm:text-base text-white leading-relaxed">
+                            {language === 'en' ? englishDescriptions[item.id] : item.description}
                           </p>
                         </div>
 
                         {item.details && (
                           <div className="lg:col-span-6 space-y-2">
-                            <div className="text-xs font-mono uppercase tracking-wider text-[#8A8A85] mb-2 font-semibold">
-                              Cakupan Praktik:
+                            <div className="text-xs tracking-wide text-muted-soft mb-2 font-semibold">
+                              {copy.skills.scope}
                             </div>
-                            {item.details.map((detail, idx) => (
-                              <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-[#A3A3A0]">
-                                <CheckCircle2 className="w-4 h-4 text-[#FF3B30] shrink-0 mt-0.5" />
+                            {(language === 'en' ? englishDetails[item.id] : item.details).map((detail, idx) => (
+                              <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-muted-soft">
+                                <CheckCircle2 className="w-4 h-4 text-accent shrink-0 mt-0.5" />
                                 <span>{detail}</span>
                               </div>
                             ))}

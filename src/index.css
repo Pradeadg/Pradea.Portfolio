@@ -31,6 +31,11 @@
   --color-line: rgba(13, 13, 13, 0.08);
   --color-line-dark: rgba(255, 255, 255, 0.1);
 
+  /* Semantic status colors for data-heavy case studies */
+  --color-success: #15803D;
+  --color-warning: #A16207;
+  --color-danger: #B91C1C;
+
   /* ============================================= */
   /* RADIUS SCALE                                  */
   /* ============================================= */
@@ -61,6 +66,60 @@ body {
 /* Otomatis membuat semua judul (h1-h6) menggunakan font Outfit */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
+}
+
+/* Shared interaction feel for primary and secondary CTA buttons. */
+.hero-button-motion {
+  transition-property: color, background-color, border-color, transform, box-shadow;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-button-motion:hover {
+  transform: scale(1.05);
+}
+
+.hero-button-motion:active {
+  transform: scale(0.95);
+}
+
+/* Lightweight section reveal; runs only once through IntersectionObserver. */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto;
+}
+
+.scroll-reveal .scroll-reveal-item {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 650ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--reveal-order, 0) * 70ms + 100ms);
+}
+
+.scroll-reveal.is-visible .scroll-reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal.is-visible,
+  .scroll-reveal .scroll-reveal-item,
+  .scroll-reveal.is-visible .scroll-reveal-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* Custom subtle scrollbar */

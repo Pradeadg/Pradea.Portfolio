@@ -17,7 +17,7 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onOpenCv }) => {
   });
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('adamteja.design@gmail.com');
+    navigator.clipboard.writeText('pradea.dg@gmail.com');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -36,43 +36,46 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onOpenCv }) => {
   return (
     <footer 
       id="contact" 
-      className="bg-[#0A0A0A] text-white pt-24 pb-12 border-t border-[#1C1C1C]"
+      className="bg-black text-white pt-24 pb-12 border-t border-line-dark"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-16">
         
         {/* Main Centered CTA Block */}
-        <div className="max-w-3xl mx-auto text-center space-y-6 pb-20 border-b border-[#222222]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-28 items-start pb-20 border-b border-line-dark">
+          <div className="lg:col-span-6 space-y-4">
           
-          <div className="inline-block text-xs font-mono text-[#FF3B30] uppercase tracking-wider font-bold">
+          <div className="font-display text-xl sm:text-2xl text-accent font-semibold">
             GET IN TOUCH · OPEN FOR OPPORTUNITIES
           </div>
 
-          <h2 className="text-4xl sm:text-6xl font-extrabold tracking-[-0.02em] text-white leading-tight">
-            Mari kerja bareng.
+          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-white leading-[1.05]">
+            Punya tantangan produk? Mari kerja bareng.
           </h2>
+          </div>
 
-          <p className="text-base sm:text-lg text-[#8A8A85] max-w-xl mx-auto">
+          <div className="lg:col-span-6 lg:pt-12">
+          <p className="font-display text-lg sm:text-xl lg:text-2xl font-medium leading-relaxed text-white max-w-xl">
             Terbuka untuk role Product & UI/UX Designer — full-time atau remote.
           </p>
 
           {/* Two CTA Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+          <div className="flex flex-wrap items-center gap-4 pt-8">
             <button
               onClick={onOpenCv}
               id="footer-btn-cv"
-              className="px-8 py-4 rounded-full bg-white text-[#0A0A0A] text-sm font-extrabold hover:bg-[#F1F0EC] transition-all hover:scale-105 active:scale-95 flex items-center gap-2 shadow-lg"
+              className="px-8 py-4 rounded-pill bg-white text-black text-sm font-extrabold hover:bg-gray-bg transition-all hover:scale-105 active:scale-95 flex items-center gap-2 shadow-lg"
             >
               <span>Download CV</span>
-              <Download className="w-4 h-4 text-[#FF3B30]" />
+              <Download className="w-4 h-4 text-accent" />
             </button>
 
             <a
-              href="mailto:adamteja.design@gmail.com?subject=Peluang%20Kerja%20Product%20UI%2FUX%20Designer%20-%20Adam%20Teja"
+              href="mailto:pradea.dg@gmail.com?subject=Peluang%20Kerja%20Product%20UI%2FUX%20Designer"
               id="footer-btn-email"
-              className="px-8 py-4 rounded-full bg-transparent text-white border border-[#3A3A3A] text-sm font-bold hover:border-white hover:bg-[#141414] transition-all flex items-center gap-2"
+              className="px-8 py-4 rounded-pill bg-transparent text-white border border-line-dark text-sm font-bold hover:border-white hover:bg-near-black transition-all flex items-center gap-2"
             >
               <span>Kirim email</span>
-              <Mail className="w-4 h-4 text-[#8A8A85]" />
+              <Mail className="w-4 h-4 text-muted-soft" />
             </a>
           </div>
 
@@ -80,7 +83,7 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onOpenCv }) => {
           <div className="pt-2">
             <button
               onClick={() => setShowEmailForm(!showEmailForm)}
-              className="text-xs font-mono text-[#8A8A85] hover:text-white transition-colors underline underline-offset-4"
+              className="text-xs text-muted-soft hover:text-white transition-colors underline underline-offset-4"
             >
               {showEmailForm ? 'Tutup Formulir Cepat' : 'Atau kirim pesan langsung dari sini'}
             </button>
@@ -88,7 +91,7 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onOpenCv }) => {
 
           {/* Quick Message Box if opened */}
           {showEmailForm && (
-            <div className="mt-6 p-6 bg-[#141414] border border-[#2A2A2A] rounded-[20px] text-left animate-in fade-in max-w-lg mx-auto">
+            <div className="mt-6 p-6 bg-near-black border border-line-dark rounded-card text-left animate-in fade-in max-w-lg">
               {formSent ? (
                 <div className="text-center py-6 space-y-2">
                   <div className="w-10 h-10 rounded-full bg-[#18331E] text-[#4ADE80] flex items-center justify-center mx-auto">
@@ -101,7 +104,7 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onOpenCv }) => {
                 <form onSubmit={handleSendForm} className="space-y-4">
                   <div className="text-xs font-bold text-white flex items-center justify-between">
                     <span>Kirim Pesan ke Adam Teja</span>
-                    <span className="text-[10px] font-mono text-[#8A8A85]">adamteja.design@gmail.com</span>
+                    <span className="text-[10px] font-mono text-[#8A8A85]">pradea.dg@gmail.com</span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <input
@@ -110,7 +113,7 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onOpenCv }) => {
                       required
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      className="bg-[#0A0A0A] border border-[#333] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#FF3B30]"
+                      className="bg-black border border-line-dark rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-accent"
                     />
                     <input
                       type="email"
@@ -118,7 +121,7 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onOpenCv }) => {
                       required
                       value={formState.email}
                       onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                      className="bg-[#0A0A0A] border border-[#333] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#FF3B30]"
+                      className="bg-black border border-line-dark rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-accent"
                     />
                   </div>
                   <input
@@ -126,7 +129,7 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onOpenCv }) => {
                     placeholder="Nama Perusahaan / Peran (Opsional)"
                     value={formState.company}
                     onChange={(e) => setFormState({ ...formState, company: e.target.value })}
-                    className="w-full bg-[#0A0A0A] border border-[#333] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#FF3B30]"
+                    className="w-full bg-black border border-line-dark rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-accent"
                   />
                   <textarea
                     placeholder="Tuliskan detail tawaran kerja atau proyek..."
@@ -134,11 +137,11 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onOpenCv }) => {
                     required
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    className="w-full bg-[#0A0A0A] border border-[#333] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#FF3B30]"
+                    className="w-full bg-black border border-line-dark rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-accent"
                   />
                   <button
                     type="submit"
-                    className="w-full py-2.5 rounded-full bg-[#FF3B30] text-white text-xs font-bold hover:bg-[#E03026] transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-2.5 rounded-pill bg-accent text-white text-xs font-bold hover:bg-accent-hover transition-colors flex items-center justify-center gap-2"
                   >
                     <Send className="w-3.5 h-3.5" />
                     <span>Kirim Pesan Sekarang</span>
@@ -147,7 +150,7 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onOpenCv }) => {
               )}
             </div>
           )}
-
+          </div>
         </div>
 
         {/* Small Footer Bar */}
@@ -158,7 +161,7 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onOpenCv }) => {
             <span className="font-extrabold text-white text-sm">pradea®</span>
             <span className="hidden sm:inline text-[#444]">•</span>
             <span className="flex items-center gap-1 font-mono">
-              <MapPin className="w-3 h-3 text-[#FF3B30]" /> Bogor, Indonesia
+              <MapPin className="w-3 h-3 text-accent" /> Bogor, Indonesia
             </span>
             <span className="hidden sm:inline text-[#444]">•</span>
             <span>© 2026. All rights reserved.</span>
@@ -167,35 +170,35 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({ onOpenCv }) => {
           {/* Social Links: WhatsApp, Email, LinkedIn, Behance, GitHub */}
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 font-mono text-xs">
             <a
-              href="https://wa.me/6281234567890?text=Halo%20Adam,%20saya%20tertarik%20dengan%20portofolio%20desain%20Anda"
+              href="https://wa.me/6285819699796?text=Halo%20Pradea,%20saya%20tertarik%20dengan%20portofolio%20desain%20Anda"
               target="_blank"
               rel="noreferrer"
-              className="text-[#D1D1D0] hover:text-[#FF3B30] transition-colors flex items-center gap-1"
+              className="text-muted-soft hover:text-accent transition-colors flex items-center gap-1"
             >
               WhatsApp <ArrowUpRight className="w-3 h-3 text-[#8A8A85]" />
             </a>
 
             <a
               href="mailto:pradea.dg@gmail.com"
-              className="text-[#D1D1D0] hover:text-[#FF3B30] transition-colors flex items-center gap-1"
+              className="text-muted-soft hover:text-accent transition-colors flex items-center gap-1"
             >
               Email <ArrowUpRight className="w-3 h-3 text-[#8A8A85]" />
             </a>
 
             <a
-              href="https://linkedin.com/in/adamteja"
+              href="https://www.linkedin.com/in/pradea-dg-13456425a/"
               target="_blank"
               rel="noreferrer"
-              className="text-[#D1D1D0] hover:text-[#FF3B30] transition-colors flex items-center gap-1"
+              className="text-muted-soft hover:text-accent transition-colors flex items-center gap-1"
             >
               LinkedIn <ArrowUpRight className="w-3 h-3 text-[#8A8A85]" />
             </a>
 
             <a
-              href="https://behance.net/adamteja"
+              href="https://www.behance.net/kaibahidek0fd2"
               target="_blank"
               rel="noreferrer"
-              className="text-[#D1D1D0] hover:text-[#FF3B30] transition-colors flex items-center gap-1"
+              className="text-muted-soft hover:text-accent transition-colors flex items-center gap-1"
             >
               Behance <ArrowUpRight className="w-3 h-3 text-[#8A8A85]" />
             </a>

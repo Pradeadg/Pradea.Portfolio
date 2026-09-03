@@ -1,111 +1,71 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   ArrowUpRight, 
   Award, 
-  User,
-  ChevronLeft,
-  ChevronRight
+  User
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { CERTIFICATES } from '../data/portfolioData';
+import { AnimatedPillContent } from './AnimatedPillContent';
+import { useLanguage } from '../LanguageContext';
 
 interface WhyMeSectionProps {
   onOpenCv?: () => void;
   onAboutMe?: () => void;
 }
 
-const CERTS_PER_PAGE = 4;
-
 export const WhyMeSection: React.FC<WhyMeSectionProps> = ({ onOpenCv, onAboutMe }) => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const totalPages = Math.ceil(CERTIFICATES.length / CERTS_PER_PAGE);
-
-  const isFirstPage = currentPage === 0;
-  const isLastPage = currentPage >= totalPages - 1;
-
-  const handleNext = () => {
-    if (!isLastPage) {
-      setCurrentPage((prev) => prev + 1);
-    }
+  const { language, copy } = useLanguage();
+  const certificateTitles: Record<string, string> = {
+    'Penerapan Generative AI untuk Produktivitas': 'Applying Generative AI for Productivity',
+    'Prinsip Dasar UX Design & Research': 'UX Design & Research Fundamentals',
+    'Dasar Manajemen Proyek': 'Project Management Fundamentals',
+    'Sertifikat Partisipasi Hackathon PIDI Digdaya x BI 2026': 'PIDI Digdaya x BI 2026 Hackathon Participation',
   };
-
-  const handlePrev = () => {
-    if (!isFirstPage) {
-      setCurrentPage((prev) => prev - 1);
-    }
-  };
-
-  const visibleCerts = CERTIFICATES.slice(
-    currentPage * CERTS_PER_PAGE, 
-    (currentPage + 1) * CERTS_PER_PAGE
-  );
-
   return (
     <section 
       id="why-me" 
       className="py-20 sm:py-28 bg-gray-bg text-ink border-b border-line"
     >
-      <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-20 space-y-12 sm:space-y-12">
+      <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-16 space-y-12 sm:space-y-16">
         
         {/* BARIS 1: HEADER & DESKRIPSI */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-28 items-start pb-6">
-          <div className="lg:col-span-6 space-y-3">
-            <span className="text-accent text-xs sm:text-2xl font-semibold block font-display">
-              Kenapa Saya
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-28 items-start pb-6">
+          <div className="lg:col-span-6 space-y-4">
+            <span className="text-accent text-xl sm:text-2xl font-semibold block font-display">
+              {copy.why.eyebrow}
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black leading-[1.15] tracking-tight">
-              7+ Tahun di industri kreatif. Kini merancang UI/UX & Produk Digital.
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-black leading-[1.08] tracking-tight">
+              {copy.why.title}
             </h2>
           </div>
 
-          <div className="lg:col-span-6 lg:pt-11">
-            <p className="text-lg sm:text-2xl lg:text-2xl font-medium leading-snug font-display">
-              Dari creative design beralih ke UI/UX & Product. Saya membantu industri SaaS dan fintech membangun produk digital dengan workflow AI-assisted.
+          <div className="lg:col-span-6 lg:pt-12">
+            <p className="text-lg sm:text-xl lg:text-2xl font-medium leading-relaxed font-display">
+              {copy.why.lead}
             </p>
           </div>
         </div>
 
-        {/* BARIS 2: KONTEN UTAMA */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        {/* BARIS 2: SERTIFIKASI */}
+        <div>
           
-          {/* FOTO PROFIL KIRI */}
-          <div className="lg:col-span-6">
-            <div className="w-full aspect-[3/4] overflow-hidden rounded-[2rem] bg-gray-200">
-              <img 
-                src="/Gambar-pradea.png" 
-                alt="Pradea — Lead UI/UX Designer" 
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
-          </div>
-
-          {/* SERTIFIKAT SLIDER KANAN */}
-          <div className="lg:col-span-6 space-y-10 lg:pl-8">
+          {/* Existing certificate items, repositioned in a responsive grid. */}
+          <div className="space-y-10">
             
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <Award className="w-7 h-7 text-accent" />
                 <h3 className="text-2xl sm:text-2xl font-bold text-black font-display tracking-tight">
-                  Sertifikasi
+                  {copy.why.certifications}
                 </h3>
               </div>
 
-              {/* ANIMASI FRAMER MOTION PADA PERGANTIAN HALAMAN */}
-              <div className="relative overflow-hidden min-h-[380px]">
-                <AnimatePresence mode="wait">
-                  <motion.div 
-                    key={currentPage} 
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.35, ease: "easeInOut" }}
-                    className="flex flex-col"
-                  >
-                    {visibleCerts.map((cert, idx) => (
+              <div className="grid grid-cols-1 gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
+                {CERTIFICATES.map((cert, idx) => (
                       <div 
                         /* Menggunakan kombinasi id/title + index agar key terjamin unik */
-                        key={cert.id || `${cert.title}-${idx}`}
+                        key={`${cert.title}-${idx}`}
+                        data-scroll-item
                         className="py-6 border-b border-line/60 last:border-b-0 flex flex-col space-y-2"
                       >
                         <div className="flex items-center justify-between">
@@ -113,72 +73,60 @@ export const WhyMeSection: React.FC<WhyMeSectionProps> = ({ onOpenCv, onAboutMe 
                             {cert.issuer}
                           </span>
                           <span className="bg-gray-200/50 px-3 py-1 rounded-full text-xs font-bold text-ink">
-                            {cert.year}
+                            {cert.date || cert.year}
                           </span>
                         </div>
                         <div>
                           <h4 className="text-xl sm:text-2xl font-bold text-black leading-snug tracking-tight font-display">
-                            {cert.title}
+                            {language === 'en' ? certificateTitles[cert.title] || cert.title : cert.title}
                           </h4>
                           <p className="text-sm text-muted mt-1.5 leading-relaxed">
-                            {cert.description || 'Awarded for standout UI/UX and aesthetic harmony across digital products.'}
+                            {cert.category}
                           </p>
+                          {cert.credentialId && (
+                            <p className="mt-1.5 text-xs leading-relaxed text-muted">
+                              {copy.why.credentialId}: {cert.credentialId}
+                            </p>
+                          )}
+                          {cert.credentialUrl ? (
+                            <a
+                              href={cert.credentialUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="mt-3 inline-flex text-xs font-bold text-accent transition-colors hover:text-accent-hover"
+                            >
+                              {copy.why.verify}
+                            </a>
+                          ) : (
+                            <span
+                              aria-disabled="true"
+                              className="mt-3 inline-flex cursor-not-allowed text-xs font-bold text-muted opacity-50"
+                            >
+                              {copy.why.unavailable}
+                            </span>
+                          )}
                         </div>
                       </div>
-                    ))}
-                  </motion.div>
-                </AnimatePresence>
+                ))}
               </div>
 
-              {/* Slider Controls */}
-              {totalPages > 1 && (
-                <div className="flex items-center gap-3 mt-4">
-                  <button 
-                    onClick={handlePrev}
-                    disabled={isFirstPage}
-                    className={`p-2.5 rounded-full border transition-all flex items-center justify-center ${
-                      isFirstPage 
-                        ? 'border-line bg-gray-50 opacity-40 cursor-not-allowed text-muted' 
-                        : 'border-line bg-white hover:border-black hover:bg-gray-50 cursor-pointer text-ink shadow-sm'
-                    }`}
-                    aria-label="Sertifikat sebelumnya"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-
-                  <button 
-                    onClick={handleNext}
-                    disabled={isLastPage}
-                    className={`p-2.5 rounded-full border transition-all flex items-center justify-center ${
-                      isLastPage 
-                        ? 'border-line bg-gray-50 opacity-40 cursor-not-allowed text-muted' 
-                        : 'border-line bg-white hover:border-black hover:bg-gray-50 cursor-pointer text-ink shadow-sm'
-                    }`}
-                    aria-label="Sertifikat selanjutnya"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </div>
-              )}
             </div>
 
             {/* ACTION BUTTONS */}
             <div className="flex flex-wrap items-center gap-4 pt-8">
               <button
                 onClick={onAboutMe}
-                className="px-7 py-3.5 rounded-full bg-black hover:bg-near-black text-white text-sm font-bold transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
+                className="hero-button-motion relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-black bg-black py-2 pl-2 pr-6 text-sm font-bold text-white group"
               >
-                <User className="w-4 h-4 text-accent" />
-                <span>Tentang Saya</span>
+                <AnimatedPillContent label={copy.why.about} icon={User} />
               </button>
 
               {onOpenCv && (
                 <button
                   onClick={onOpenCv}
-                  className="px-7 py-3.5 rounded-full bg-transparent text-ink hover:text-accent text-sm font-bold transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
+                  className="hero-button-motion relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-line bg-white py-2 pl-2 pr-6 text-sm font-bold text-ink shadow-sm group"
                 >
-                  <span>Buka CV Lengkap</span>
-                  <ArrowUpRight className="w-4 h-4 text-accent" />
+                  <AnimatedPillContent label={copy.common.openCv} icon={ArrowUpRight} />
                 </button>
               )}
             </div>

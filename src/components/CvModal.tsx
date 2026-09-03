@@ -13,7 +13,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('adamteja.design@gmail.com');
+    navigator.clipboard.writeText('pradea.dg@gmail.com');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -79,7 +79,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
                 <MapPin className="w-3.5 h-3.5 text-[#FF3B30]" /> Bogor, Jawa Barat, Indonesia
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-[#FF3B30]" /> adamteja.design@gmail.com
+                <Mail className="w-3.5 h-3.5 text-[#FF3B30]" /> pradea.dg@gmail.com
               </div>
               <div className="flex items-center gap-2">
                 <Briefcase className="w-3.5 h-3.5 text-[#22C55E]" /> Terbuka: Full-time / Remote
@@ -221,7 +221,7 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
               {copied ? 'Email Tersalin!' : 'Salin Email'}
             </button>
             <a
-              href="mailto:adamteja.design@gmail.com?subject=Undangan%20Interview%20Product%20UI%2FUX%20Designer%20-%20Adam%20Teja"
+              href="mailto:pradea.dg@gmail.com?subject=Undangan%20Interview%20Product%20UI%2FUX%20Designer"
               className="flex-1 sm:flex-none px-5 py-2 rounded-full bg-[#0A0A0A] text-white text-xs font-bold hover:bg-[#222222] transition-colors flex items-center justify-center gap-1.5"
             >
               <span>Kirim Email Langsung</span>

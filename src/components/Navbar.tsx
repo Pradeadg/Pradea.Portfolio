@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Download, ArrowUpRight } from 'lucide-react';
+import { Language, useLanguage } from '../LanguageContext';
 
 interface NavbarProps {
   onOpenCv: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
+  const { language, setLanguage, copy } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -18,12 +20,23 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
   }, []);
 
   const navLinks = [
-    { name: 'Work', href: '#work' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Process', href: '#process' },
-    { name: 'About', href: '#about' },
-    { name: 'Kenapa Saya', href: '#why-me' },
+    { name: copy.nav.work, href: '#work' },
+    { name: copy.nav.skills, href: '#skills' },
+    { name: copy.nav.process, href: '#process' },
+    { name: copy.nav.about, href: '#about' },
+    { name: copy.nav.why, href: '#why-me' },
   ];
+
+  const LanguageToggle = ({ mobile = false }: { mobile?: boolean }) => (
+    <div className={`flex items-center rounded-pill border border-line-dark bg-white/5 p-0.5 ${mobile ? 'w-full' : ''}`} role="group" aria-label={copy.language}>
+      {(['en', 'id'] as Language[]).map((option) => (
+        <button key={option} type="button" onClick={() => setLanguage(option)} aria-pressed={language === option}
+          className={`${mobile ? 'flex-1 py-2' : 'px-2 py-1'} rounded-pill text-[10px] font-bold uppercase tracking-wide transition-all duration-200 ${language === option ? 'bg-white text-black shadow-sm' : 'text-muted-soft hover:bg-white/10 hover:text-white'}`}>
+          {option}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <header 
@@ -33,18 +46,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
       <div className="max-w-5xl mx-auto flex items-center justify-between gap-3 pointer-events-auto">
         
         {/* Floating Pill Bar */}
-        <div className={`w-full bg-[#111111]/85 backdrop-blur-xl border border-white/10 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.6)] flex items-center justify-between transition-all duration-300 ${
-          isScrolled ? 'ring-1 ring-white/15 bg-[#0D0D0D]/95' : ''
+        <div className={`w-full bg-black/85 backdrop-blur-xl border border-line-dark px-4 sm:px-6 py-2.5 sm:py-3 rounded-pill shadow-photo flex items-center justify-between transition-all duration-300 ${
+          isScrolled ? 'ring-1 ring-white/15 bg-black/95' : ''
         }`}>
           
           {/* Logo Brand Left */}
           <a 
             href="#" 
             id="nav-logo"
-            className="text-white text-base sm:text-lg font-black tracking-tight hover:text-[#FF3B30] transition-colors flex items-center gap-1.5 group"
+            className="text-white text-base sm:text-lg font-black tracking-tight hover:text-accent transition-colors flex items-center gap-1.5 group"
           >
             <span>pradea®</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF3B30] group-hover:scale-125 transition-transform"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-accent group-hover:scale-125 transition-transform"></span>
           </a>
 
           {/* Menu Navigation Center (Desktop) */}
@@ -54,7 +67,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
                 key={link.name}
                 href={link.href}
                 id={`nav-link-${link.name.toLowerCase().replace(/\s+/g, '-')}`}
-                className="text-[#999990] hover:text-white text-xs font-medium px-3.5 py-1.5 rounded-full transition-colors hover:bg-white/10"
+                className="text-muted-soft hover:text-white text-xs font-medium px-3.5 py-1.5 rounded-pill transition-colors hover:bg-white/10"
               >
                 {link.name}
               </a>
@@ -63,13 +76,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
 
           {/* Action Button Right */}
           <div className="hidden md:flex items-center gap-2">
+            <LanguageToggle />
             <button
               onClick={onOpenCv}
               id="nav-btn-cv"
-              className="px-4 py-1.5 rounded-full bg-white text-[#0A0A0A] text-xs font-extrabold hover:bg-[#EAEAEA] transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5 shadow-sm"
+              className="hero-button-motion px-4 py-1.5 rounded-pill bg-white text-black text-xs font-extrabold hover:bg-gray-bg flex items-center gap-1.5 shadow-cta"
             >
-              <span>Download CV</span>
-              <Download className="w-3.5 h-3.5 text-[#FF3B30]" />
+              <span>{copy.nav.cv}</span>
+              <Download className="w-3.5 h-3.5 text-accent" />
             </button>
           </div>
 
@@ -77,17 +91,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
           <div className="flex md:hidden items-center gap-2">
             <button
               onClick={onOpenCv}
-              className="px-3 py-1 rounded-full bg-white text-[#0A0A0A] text-[11px] font-bold flex items-center gap-1"
+              className="hero-button-motion px-3 py-1 rounded-pill bg-white text-black text-[11px] font-bold flex items-center gap-1"
             >
               <span>CV</span>
-              <Download className="w-3 h-3 text-[#FF3B30]" />
+              <Download className="w-3 h-3 text-accent" />
             </button>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               id="mobile-menu-toggle"
-              className="p-1.5 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-              aria-label="Toggle menu"
+              className="hero-button-motion p-1.5 rounded-full bg-white/10 text-white hover:bg-white/20"
+              aria-label={mobileMenuOpen ? copy.nav.close : copy.nav.open}
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
@@ -99,18 +114,23 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
 
       {/* Mobile Drawer Menu Popup */}
       {mobileMenuOpen && (
-        <div className="pointer-events-auto max-w-sm mx-auto mt-2 bg-[#141414]/95 backdrop-blur-2xl border border-white/15 p-4 rounded-3xl shadow-2xl space-y-2 md:hidden animate-in slide-in-from-top-2">
+        <div className="pointer-events-auto max-w-sm mx-auto mt-2 bg-black/95 backdrop-blur-2xl border border-line-dark p-4 rounded-card-lg shadow-photo space-y-2 md:hidden animate-in slide-in-from-top-2">
           <div className="flex flex-col space-y-1">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-[#D1D1D0] hover:text-white text-xs font-medium px-4 py-2.5 rounded-xl hover:bg-white/10 transition-colors"
+                className="text-muted-soft hover:text-white text-xs font-medium px-4 py-2.5 rounded-card hover:bg-white/10 transition-colors"
               >
                 {link.name}
               </a>
             ))}
+          </div>
+
+          <div className="border-t border-line-dark pt-3">
+            <span className="mb-2 block px-1 text-[10px] font-semibold uppercase tracking-wider text-muted-soft">{copy.language}</span>
+            <LanguageToggle mobile />
           </div>
 
           <button
@@ -118,9 +138,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCv }) => {
               setMobileMenuOpen(false);
               onOpenCv();
             }}
-            className="w-full py-2.5 rounded-full bg-[#FF3B30] hover:bg-[#E0342A] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg transition-colors"
+            className="hero-button-motion w-full py-2.5 rounded-pill bg-accent hover:bg-accent-hover text-white text-xs font-bold flex items-center justify-center gap-2 shadow-cta"
           >
-            <span>Download CV Lengkap</span>
+            <span>{copy.nav.fullCv}</span>
             <Download className="w-3.5 h-3.5" />
           </button>
         </div>

@@ -6,9 +6,9 @@ import { WorkSection } from './components/WorkSection';
 import { SkillsSection } from './components/SkillsSection';
 import { ProcessSection } from './components/ProcessSection';
 import { WhyMeSection } from './components/WhyMeSection';
-import { ContactFooter } from './components/ContactFooter';
+import { SiteFooter } from './components/SiteFooter';
 import { CvModal } from './components/CvModal';
-import { CaseStudyPage } from './components/CaseStudyPage';
+import { CaseStudyFramework as CaseStudyPage } from './components/CaseStudyFramework';
 import { Project } from './types';
 import { PROJECTS } from './data/portfolioData';
 
@@ -28,6 +28,44 @@ export default function App() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isCvOpen]);
+
+  // Subtle one-time reveal for landing-page sections.
+  useEffect(() => {
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>('#about, #work, #skills, #process, #why-me, [data-case-study-section]')
+    );
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      sections.forEach((section) => section.classList.add('is-visible'));
+      return;
+    }
+
+    sections.forEach((section) => {
+      section.classList.add('scroll-reveal');
+
+      const items = section.querySelectorAll<HTMLElement>(
+        ':scope > div > *, [id^="accordion-card-"], [id^="skill-accordion-"], [id^="process-card-"], [data-scroll-item]'
+      );
+      items.forEach((item, index) => {
+        item.classList.add('scroll-reveal-item');
+        item.style.setProperty('--reveal-order', String(Math.min(index, 7)));
+      });
+    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [activeCaseStudy]);
 
   const handleOpenProject = (project: Project) => {
     setActiveCaseStudy(project);
@@ -63,7 +101,7 @@ export default function App() {
   // If a case study is active, display the dedicated full-width scrollable case study page
   if (activeCaseStudy) {
     return (
-      <div className="min-h-screen bg-[#FBFBFA]">
+      <div className="min-h-screen bg-gray-bg">
         <CaseStudyPage 
           project={activeCaseStudy} 
           onBack={handleBackToPortfolio} 
@@ -85,7 +123,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FBFBFA] text-[#111111] font-sans antialiased selection:bg-[#FF3B30] selection:text-white">
+    <div className="min-h-screen bg-gray-bg text-ink font-sans antialiased selection:bg-accent selection:text-white">
       {/* 1. NAVBAR (Dark, Sticky) */}
       <Navbar onOpenCv={() => setIsCvOpen(true)} />
 
@@ -113,7 +151,7 @@ export default function App() {
       </main>
 
       {/* 8. CONTACT & FOOTER (Background Hitam #0A0A0A) */}
-      <ContactFooter onOpenCv={() => setIsCvOpen(true)} />
+      <SiteFooter onOpenCv={() => setIsCvOpen(true)} />
 
       {/* Interactive CV Modal */}
       <CvModal 

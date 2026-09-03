@@ -64,5 +64,8 @@ export interface Certificate {
   title: string;
   issuer: string;
   year: string;
+  date?: string;
   category: string;
+  credentialId?: string;
+  credentialUrl?: string;
 }

@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { AnimatedPillContent } from './AnimatedPillContent';
+import { useLanguage } from '../LanguageContext';
 
 interface HeroProps {
   onSelectProject?: (type: 'fazch' | 'fintech') => void;
@@ -28,6 +30,7 @@ const itemVariants = {
 };
 
 export const Hero: React.FC<HeroProps> = ({ onContactClick }) => {
+  const { copy } = useLanguage();
   const targetRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -44,7 +47,7 @@ export const Hero: React.FC<HeroProps> = ({ onContactClick }) => {
     <section 
       ref={targetRef}
       id="hero"
-      className="relative min-h-[100vh] pt-24 sm:pt-28 lg:pt-12 pb-8 sm:pb-32 lg:pb-10 bg-black text-white flex flex-col justify-end gap-10 sm:gap-14 lg:gap-16 overflow-hidden rounded-b-[48px] sm:rounded-b-[56px] lg:rounded-b-[64px]"
+      className="relative min-h-[100svh] lg:h-[clamp(720px,100svh,1080px)] lg:min-h-0 pt-24 sm:pt-28 lg:pt-12 pb-8 sm:pb-32 lg:pb-10 bg-black text-white flex flex-col justify-end gap-10 sm:gap-14 lg:gap-16 overflow-hidden rounded-b-[48px] sm:rounded-b-[56px] lg:rounded-b-[64px]"
     >
       {/* Background ambient lighting */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[550px] bg-gradient-to-tr from-near-black/60 via-black/30 to-transparent rounded-full blur-3xl pointer-events-none" />
@@ -57,8 +60,8 @@ export const Hero: React.FC<HeroProps> = ({ onContactClick }) => {
         <div className="relative w-full h-full flex items-end justify-center">
           
           <motion.img 
-             initial={{ opacity: 0, scale: 1.05 }}
-             animate={{ opacity: 1, scale: 1 }}
+             initial={{ opacity: 0, scale: 1.5 }}
+             animate={{ opacity: 1, scale: 1.2 }}
              style={{
                scale: imageScale,
                opacity: imageOpacity,
@@ -99,7 +102,7 @@ export const Hero: React.FC<HeroProps> = ({ onContactClick }) => {
               <motion.div variants={itemVariants} className="inline-block">
                 <span className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-near-black/90 backdrop-blur-md border border-line-dark text-xs font-semibold text-white tracking-tight shadow-xl">
                   <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-                  <span>Available for Work</span>
+                  <span>{copy.hero.available}</span>
                 </span>
               </motion.div>
 
@@ -131,20 +134,9 @@ export const Hero: React.FC<HeroProps> = ({ onContactClick }) => {
                 <a
                   href="#work"
                   id="hero-btn-portfolio"
-                  className="relative inline-flex items-center gap-3 pl-2 pr-6 py-2 rounded-full bg-white text-black font-bold text-xs sm:text-sm tracking-tight transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_4px_20px_rgba(255,255,255,0.15)] group overflow-hidden border"
+                  className="hero-button-motion relative inline-flex items-center gap-3 pl-2 pr-6 py-2 rounded-pill bg-white text-black font-bold text-xs sm:text-sm tracking-tight shadow-cta group overflow-hidden border border-line"
                 >
-                  {/* LAYER BACKGROUND ORANGE MELEBAR */}
-                  <span className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-accent rounded-full transition-all duration-500 ease-out group-hover:w-[120%] group-hover:h-[300%] group-hover:left-1/2 group-hover:-translate-x-1/2 z-0 pointer-events-none" />
-
-                  {/* LINGKARAN IKON */}
-                  <span className="relative z-10 w-7 h-7 rounded-full bg-accent group-hover:bg-white text-white group-hover:text-accent flex items-center justify-center font-bold transition-colors duration-300 shadow-sm shrink-0">
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </span>
-
-                  {/* TEKS */}
-                  <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
-                    Lihat portofolio
-                  </span>
+                  <AnimatedPillContent label={copy.hero.portfolio} icon={ArrowRight} />
                 </a>
 
               </motion.div>
@@ -166,13 +158,13 @@ export const Hero: React.FC<HeroProps> = ({ onContactClick }) => {
         <div className="w-full pt-6 sm:pt-6 lg:pt-12 grid grid-cols-2 sm:flex sm:flex-row sm:justify-between gap-y-6 gap-x-4">
           
           <div>
-            <span className="font-display text-accent font-bold text-2xl">7+ Tahun</span>
-            <p className="text-white font-semibold text-sm sm:text-base mt-1">Pengalaman</p>
+            <span className="font-display text-accent font-bold text-2xl">{copy.hero.years}</span>
+            <p className="text-white font-semibold text-sm sm:text-base mt-1">{copy.hero.experience}</p>
           </div>
 
           <div>
-            <span className="font-display text-accent font-bold text-2xl">2+ Tahun</span>
-            <p className="text-white font-semibold text-sm sm:text-base mt-1">Fokus UI/UX & Product</p>
+            <span className="font-display text-accent font-bold text-2xl">{copy.hero.focusYears}</span>
+            <p className="text-white font-semibold text-sm sm:text-base mt-1">{copy.hero.focus}</p>
           </div>
 
           <div>

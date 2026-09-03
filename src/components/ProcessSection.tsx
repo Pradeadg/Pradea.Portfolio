@@ -1,56 +1,49 @@
 import React from 'react';
+import { ArrowUpRight, Code2, PenTool, Rocket, Search } from 'lucide-react';
+import { AnimatedPillContent } from './AnimatedPillContent';
+import { useLanguage } from '../LanguageContext';
 
 interface ProcessSectionProps {
   onContactClick?: () => void;
 }
 
 export const ProcessSection: React.FC<ProcessSectionProps> = ({ onContactClick }) => {
+  const { copy } = useLanguage();
   const steps = [
     {
       number: '01',
-      title: '01 — Riset',
-      description: 'Memahami masalah dan target pengguna lewat riset, dipercepat dengan sintesis AI untuk pemetaan user persona.',
+      title: copy.process.research,
+      description: copy.process.researchDesc,
       theme: 'light' as const,
       icon: (
-        <svg className="w-4 h-4 text-[#FF3B30]" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2.5L14.6 9.4L21.5 12L14.6 14.6L12 21.5L9.4 14.6L2.5 12L9.4 9.4L12 2.5Z" />
-        </svg>
+        <Search className="w-4 h-4 text-accent" strokeWidth={2} aria-hidden="true" />
       )
     },
     {
       number: '02',
-      title: '02 — Desain',
-      description: 'Menyusun wireframe dan design system yang seimbang antara estetika dan usability.',
+      title: copy.process.design,
+      description: copy.process.designDesc,
       theme: 'dark' as const,
       icon: (
-        <svg className="w-4 h-4 text-[#FF3B30]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="12" cy="12" r="8" />
-          <circle cx="12" cy="12" r="3" fill="currentColor" />
-        </svg>
+        <PenTool className="w-4 h-4 text-accent" strokeWidth={2} aria-hidden="true" />
       )
     },
     {
       number: '03',
-      title: '03 — Bangun',
-      description: 'Vibe-coding dari desain jadi produk jalan dengan Next.js dan Tailwind.',
+      title: copy.process.build,
+      description: copy.process.buildDesc,
       theme: 'light' as const,
       icon: (
-        <svg className="w-4 h-4 text-[#FF3B30]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="4" y="3" width="16" height="18" rx="2" />
-          <path d="M8 8h8M8 12h8M8 16h8" strokeLinecap="round" />
-        </svg>
+        <Code2 className="w-4 h-4 text-accent" strokeWidth={2} aria-hidden="true" />
       )
     },
     {
       number: '04',
-      title: '04 — Rilis',
-      description: 'Deploy dan iterasi berdasarkan feedback nyata dari pengguna.',
+      title: copy.process.launch,
+      description: copy.process.launchDesc,
       theme: 'dark' as const,
       icon: (
-        <svg className="w-4 h-4 text-[#FF3B30]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="12" y="3" width="12.7" height="12.7" rx="1.5" transform="rotate(45 12 3)" />
-          <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
-        </svg>
+        <Rocket className="w-4 h-4 text-accent" strokeWidth={2} aria-hidden="true" />
       )
     }
   ];
@@ -69,28 +62,27 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onContactClick }
   return (
     <section 
       id="process" 
-      className="py-20 sm:py-28 bg-[#FFFFFF] text-[#111111] border-b border-[#EAEAE8]"
+      className="py-20 sm:py-28 bg-white text-ink border-b border-line"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-16">
         
         {/* Header: Title on Left, Contact Pill Button on Right */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-start gap-6 mb-12 sm:mb-16">
-          <div className="space-y-2.5">
-            {/* Badge Process */}
-            <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#7A7A76] tracking-wider uppercase">
-              <span className="text-[#FF3B30] text-sm leading-none">PROCESS</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-black tracking-tight text-[#0A0A0A] leading-tight">
-              Proses kerja dari riset sampai produk<br className="hidden sm:block" /> siap dipakai.
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-28 items-start mb-12 sm:mb-16">
+          <div className="lg:col-span-6 space-y-4">
+            <span className="block font-display text-xl sm:text-2xl font-semibold text-accent">{copy.process.eyebrow}</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-black leading-[1.08]">
+              {copy.process.title}
             </h2>
           </div>
-
-          <div className="shrink-0">
+          <div className="lg:col-span-6 lg:pt-12 space-y-6">
+            <p className="font-display text-lg sm:text-xl lg:text-2xl font-medium leading-relaxed text-ink">
+              {copy.process.lead}
+            </p>
             <button
               onClick={handleContact}
-              className="px-7 py-3 rounded-full bg-[#0A0A0A] text-white text-xs sm:text-sm font-bold hover:bg-[#222222] transition-all hover:scale-105 active:scale-95 shadow-sm"
+              className="hero-button-motion relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-black bg-black py-2 pl-2 pr-6 text-xs sm:text-sm font-bold text-white shadow-cta group"
             >
-              Hubungi saya
+              <AnimatedPillContent label={copy.common.contact} icon={ArrowUpRight} />
             </button>
           </div>
         </div>
@@ -103,25 +95,25 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onContactClick }
               <div
                 key={item.number}
                 id={`process-card-${item.number}`}
-                className={`group min-h-[250px] p-6 sm:p-7 rounded-[22px] flex flex-col justify-start transition-all duration-300 ease-out transform hover:-translate-y-2 hover:shadow-xl border cursor-default ${
+                className={`group min-h-[250px] p-6 sm:p-7 rounded-card flex flex-col justify-start transition-all duration-300 ease-out transform hover:-translate-y-2 hover:shadow-photo border cursor-default ${
                   isDark
-                    ? 'bg-[#0A0A0A] text-white border-[#1F1F1F] hover:border-[#383838] hover:bg-[#121212]'
-                    : 'bg-[#F2F0EB] text-[#0A0A0A] border-[#E8E6E0] hover:border-[#D5D3CC] hover:bg-[#F7F5F0]'
+                    ? 'bg-black text-white border-line-dark hover:border-white/20 hover:bg-near-black'
+                    : 'bg-gray-bg text-black border-line hover:border-accent-border hover:bg-accent-soft'
                 }`}
               >
                 {/* Top Icon Box with Red Stroke */}
                 <div>
-                  <div className="w-10 h-10 rounded-xl border border-[#FF3B30]/70 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                  <div className="w-10 h-10 rounded-xl border border-accent/70 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
                     {item.icon}
                   </div>
                 </div>
 
                 {/* Content: Title & Description */}
                 <div className="space-y-2 pt-8">
-                  <h3 className={`text-base sm:text-lg font-extrabold tracking-tight ${isDark ? 'text-white' : 'text-[#0A0A0A]'}`}>
+                  <h3 className={`text-base sm:text-lg font-extrabold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
                     {item.title}
                   </h3>
-                  <p className={`text-xs sm:text-[13px] leading-relaxed ${isDark ? 'text-[#9E9E9A]' : 'text-[#5C5C5A]'}`}>
+                  <p className={`text-xs sm:text-[13px] leading-relaxed ${isDark ? 'text-muted-soft' : 'text-muted'}`}>
                     {item.description}
                   </p>
                 </div>
